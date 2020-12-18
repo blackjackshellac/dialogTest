@@ -1,7 +1,8 @@
-# gnome-clocks-indicator
-Gnome Shell extension to interface with Gnome Clocks
+# dialogTest
+
+Gnome Shell extension to test GObject Template dialogbox creation
 
 ## References
 
-Based on gnome-shell-alarm https://github.com/pacoqueen/gnome-shell-alarm
+
 
