@@ -5,7 +5,7 @@ Gnome Shell extension to test GObject Template dialogbox creation
 ```
 let DialogTestDialog = GObject.registerClass({
   GTypeName: 'DialogTestDialog',
-  Template: 'file:///home/steeve/github/dialogTest/dialogtest@blackjackshellac.ca/dialogtestdialog.ui',
+  Template: 'file:///.../dialogtest@blackjackshellac.ca/dialogtestdialog.ui',
   //InternalChildren: [ 'button_close' ] //[ 'check_play_sound', 'check_loop', 'sound_file', 'button_close' ]
 }, class DialogTestDialog extends Gtk.Dialog {
   
