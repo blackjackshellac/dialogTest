@@ -27,6 +27,7 @@ const _ = Gettext.gettext;
 
 const PanelMenu = imports.ui.panelMenu;
 const PopupMenu = imports.ui.popupMenu;
+const ModalDialog = imports.ui.modalDialog.ModalDialog;
 
 
 // GNOME Shell imports
@@ -44,33 +45,41 @@ class Indicator extends PanelMenu.Button {
 
         let box = new St.BoxLayout({ style_class: 'panel-status-menu-box' });
         box.add_child(new St.Icon({
-            icon_name: 'dialog-test-dialog-full',
+            icon_name: 'dialog-test-dialog-symbolic',
             style_class: 'system-status-icon',
         }));
         box.add_child(PopupMenu.arrowIcon(St.Side.BOTTOM));
         this.add_child(box);
 
-        let item = new PopupMenu.PopupMenuItem(_('Preferences ...'));
-        item.connect('activate', () => {
-          this._show_prefs();
+        let preferences = new PopupMenu.PopupMenuItem(_('Preferences…'));
+        preferences.connect('activate', () => {
+          log("Show preferences ...");
+          new DialogTest({});
         });
-        this.menu.addMenuItem(item);
+        this.menu.addMenuItem(preferences);
     }
+});
+
+const DialogTest = GObject.registerClass(
+class DialogTest extends ModalDialog {
+  _init(params) {
+    super._init(params);
+    log("DialogTest init")
     
-    _show_prefs() {
-      var dtd = new DialogTestDialog();
-      dtd.show();
-    }
+    this._fadeOpen(true);
+  }
 });
 
 // x-special/nautilus-clipboard
 // copy
-// file:///home/steeve/github/dialogTest/dialogtest@blackjackshellac.ca/dialogtest.ui
+// file:///home/foo/github/dialogTest/dialogtest@blackjackshellac.ca/dialogtest.ui
 
+// You can't use GTK in the Shell, #extensions:gnome.org is the main Extensions channel.
+/*
 let DialogTestDialog = GObject.registerClass({
   GTypeName: 'DialogTestDialog',
-  Template: 'file:///home/steeve/github/dialogTest/dialogtest@blackjackshellac.ca/dialogtestdialog.ui',
-  //InternalChildren: [ 'button_close' ] //[ 'check_play_sound', 'check_loop', 'sound_file', 'button_close' ]
+  Template: 'dialogtestdialog.ui',
+  InternalChildren: [ 'button_close', 'entry', 'play', 'pause', 'check', 'radio1', 'radio2', 'radio3' ]
 }, class DialogTestDialog extends Gtk.Dialog {
   
   _init(params={}) {
@@ -89,37 +98,37 @@ let DialogTestDialog = GObject.registerClass({
     log("In show()");
     //this.show_all();
   }
-    
+  
   on_button_close_clicked() {
-    log("on_button_close_clicked")
+    log("on_button_close_clicked");
   }
   
   on_check_toggled() {
-    log("on_check_toggled")
+    log("on_check_toggled");
   }
   on_entry_changed() {
-    log("on_entry_changed")
+    log("on_entry_changed");
   }
 
   on_radio1_toggled() {
-    log("on radio1 toggled")
+    log("on radio1 toggled");
   }
 
   on_radio2_toggled() {
-    log("on radio2 toggled")
+    log("on radio2 toggled");
   }
 
   on_radio3_toggled() {
-    log("on radio3 toggled")
+    log("on radio3 toggled");
   }
   
 });
-
+*/
 
 class Extension {
     constructor(uuid) {
         this._uuid = uuid;
-
+        log(Me.description);
         ExtensionUtils.initTranslations(GETTEXT_DOMAIN);
     }
 
@@ -135,6 +144,5 @@ class Extension {
 }
 
 function init(meta) {
-  log(Me.description);
   return new Extension(meta.uuid);
 }
