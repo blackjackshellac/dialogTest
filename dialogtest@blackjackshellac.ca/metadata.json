@@ -1,0 +1,8 @@
+{
+  "name": "Dialog Test",
+  "description": "Test Dialogs in Gnome Shell",
+  "uuid": "dialogtest@blackjackshellac.ca",
+  "shell-version": [
+    "3.38"
+  ]
+}
